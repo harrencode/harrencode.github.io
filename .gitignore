@@ -1,55 +1,41 @@
-# Dependencies
+# ── Dependencies ──────────────────────────────────────────────────────────────
 node_modules/
-.pnp/
+.pnp
 .pnp.js
 .yarn/install-state.gz
 
-# Next.js
+# ── Next.js ───────────────────────────────────────────────────────────────────
 .next/
 out/
 build/
-next-env.d.ts
 
-# TypeScript
-*.tsbuildinfo
-
-# Environment variables
+# ── Environment variables ─────────────────────────────────────────────────────
 .env
-.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+# Keep the example env committed as a reference
 !.env.example
 
-# Tests and coverage
+# ── TypeScript ────────────────────────────────────────────────────────────────
+*.tsbuildinfo
+next-env.d.ts
+
+# ── Testing ───────────────────────────────────────────────────────────────────
 coverage/
 .nyc_output/
 
-# Logs
-logs/
-*.log
+# ── Logs ──────────────────────────────────────────────────────────────────────
 npm-debug.log*
 yarn-debug.log*
+yarn-error.log*
 pnpm-debug.log*
+*.log
 
-# Package manager caches
-.npm/
-.yarn/cache/
-.yarn/unplugged/
-.yarn/build-state.yml
-.yarn/install-state.gz
-
-# Vercel / deployment
-.vercel/
-
-# Turbo / framework caches
-.turbo/
-.cache/
-
-# OS files
+# ── OS / Editor ───────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# Editor files
 .idea/
 .vscode/
 *.suo
@@ -57,3 +43,7 @@ Desktop.ini
 *.njsproj
 *.sln
 *.sw?
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+.cache/
+.turbo/

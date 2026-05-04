@@ -1,0 +1,62 @@
+echo "ðŸ”  Running pre-commit checks..."
+
+# â”€â”€ 0. Atomic folder structure gate â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Validates EVERY folder under src/atomic/ follows the naming convention
+# (atm.|mol.|obj.|org.) before any code is linted or committed.
+# This catches new folders that haven't been linted yet.
+echo "  [0/5] Checking atomic folder structure..."
+INVALID_ATOMIC_FOLDERS=""
+if [ -d "src/atomic" ]; then
+  for dir in src/atomic/*/; do
+    folder=$(basename "$dir")
+    if ! echo "$folder" | grep -qE '^(atm|mol|obj|org)\.'; then
+      INVALID_ATOMIC_FOLDERS="${INVALID_ATOMIC_FOLDERS}\n    - ${folder}"
+    fi
+  done
+fi
+if [ -n "$INVALID_ATOMIC_FOLDERS" ]; then
+  echo "âŒ  Invalid atomic folder names detected:"
+  printf "%b\n" "$INVALID_ATOMIC_FOLDERS"
+  echo ""
+  echo "    Every folder under src/atomic/ must be prefixed with:"
+  echo "      atm.<name>  â†’ atom        (base UI primitive)"
+  echo "      mol.<name>  â†’ molecule    (composed from atoms)"
+  echo "      obj.<name>  â†’ organism    (composed from molecules)"
+  echo "      org.<name>  â†’ page-organism  (full page sections)"
+  echo ""
+  echo "    Rename the folder(s) above and try again."
+  exit 1
+fi
+echo "      âœ“ All atomic folders are correctly named."
+
+# â”€â”€ 1. Lint + format check on staged files â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+echo "  [1/5] lint-staged (ESLint + Prettier)..."
+npx lint-staged --relative || {
+  echo "âŒ  lint-staged failed. Fix the errors above before committing."
+  exit 1
+}
+
+# â”€â”€ 2. TypeScript type check â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+echo "  [2/5] TypeScript type check..."
+npx tsc --noEmit || {
+  echo "âŒ  TypeScript errors found. Fix them before committing."
+  exit 1
+}
+
+# â”€â”€ 3. Unit & integration tests â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+echo "  [3/5] Running tests..."
+npx jest --passWithNoTests || {
+  echo "âŒ  Tests failed. Fix them before committing."
+  exit 1
+}
+
+# â”€â”€ 4. Next.js build check (catches page/component build-time errors) â”€â”€â”€â”€â”€â”€â”€â”€â”€
+echo "  [4/5] Next.js build check..."
+npm run build 2>&1 | tail -20
+BUILD_EXIT=${PIPESTATUS[0]}
+if [ "$BUILD_EXIT" -ne 0 ]; then
+  echo "âŒ  Build failed. Fix the errors above before committing."
+  exit 1
+fi
+
+echo "âœ…  All checks passed. Proceeding with commit."
