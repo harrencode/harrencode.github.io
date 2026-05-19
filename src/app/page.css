@@ -281,6 +281,31 @@
   width: 36px;
 }
 
+.help-box {
+  position: relative;
+  display: inline-block;
+  min-width: min(820px, 100%);
+  border: 2px solid var(--green);
+  padding: 18px 18px 12px;
+  margin: 10px 0;
+  animation: lineIn 0.25s ease;
+}
+
+.help-title {
+  position: absolute;
+  top: -11px;
+  left: 28px;
+  color: var(--cyan);
+  background: #030706;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.help-row {
+  font-size: 13px;
+  line-height: 1.8;
+}
+
 .skill-cloud {
   display: flex;
   flex-wrap: wrap;
@@ -363,9 +388,14 @@
   border: 1px solid #0a2a14;
 }
 
-.pstatus.wip {
+.pstatus.completed {
   color: #ffb86c;
   border: 1px solid #3a2000;
+}
+
+.pstatus.wip {
+  color: #5eaeff;
+  border: 1px solid #0a2340;
 }
 
 .neofetch-info {
@@ -452,6 +482,7 @@
   }
 
   .line,
+  .help-row,
   .p-user,
   .p-at,
   .p-host,
@@ -467,5 +498,11 @@
 
   .neofetch-art-block {
     font-size: 8px;
+  }
+
+  .help-box {
+    display: block;
+    min-width: 0;
+    padding: 16px 14px 10px;
   }
 }

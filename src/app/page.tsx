@@ -174,14 +174,14 @@ const PROJECTS = [
     name: "vrs-vehicle-renting-system",
     desc: "Group project for a web-based vehicle rental system that lets customers book and manage rentals through a reliable, user-friendly workflow.",
     stack: ["PHP", "MySQL", "JavaScript", "Bootstrap"],
-    status: "live",
+    status: "completed",
     links: [["repo", "https://github.com/SaviduOfficial/carRental"]],
   },
   {
     name: "mad-word-guessing-game",
     desc: "Android word guessing game where players try to uncover a hidden word within a limited number of attempts.",
     stack: ["Android Studio", "Java", "Dreamlo API"],
-    status: "live",
+    status: "completed",
     links: [["repo", "https://github.com/harrencode/mad_word_guessing_game"]],
   },
   {
@@ -195,7 +195,7 @@ const PROJECTS = [
       "Manifest V3",
       "PowerShell",
     ],
-    status: "live",
+    status: "completed",
     links: [["repo", "https://github.com/harrencode/slt-extension"]],
   },
 ];
@@ -345,18 +345,10 @@ export default function Page() {
 
   const showHelp = useCallback(() => {
     addSpacer();
-    addLine(
-      <>
-        <span className="g">┌─</span> <span className="cyan">COMMANDS</span>{" "}
-        <span className="g">
-          ──────────────────────────────────────────────┐
-        </span>
-      </>,
-    );
     const cmds: Array<[string, string]> = [
       ["neofetch", "system info & profile overview"],
-      ["about", "who am i — bio & background"],
-      ["skills", "tech stack with proficiency levels"],
+      ["about", "who am i - bio & background"],
+      ["skills", "skills & specializations"],
       ["projects", "portfolio of work"],
       ["contact", "get in touch"],
       ["cv", "download curriculum vitae"],
@@ -366,22 +358,18 @@ export default function Page() {
       ["clear", "clear the terminal"],
       ["sudo hire harendra", "...just try it"],
     ];
-    cmds.forEach(([c, d]) => {
-      addLine(
-        <>
-          <span className="g">│</span> <span className="yellow"> {c}</span>{" "}
-          <span className="dim">{d}</span>
-        </>,
-      );
-    });
-    addLine(
-      <span className="g">
-        └────────────────────────────────────────────────────────────┘
-      </span>,
+    addItem(
+      <div className="help-box">
+        <div className="help-title">COMMANDS</div>
+        {cmds.map(([c, d]) => (
+          <div className="help-row" key={c}>
+            <span className="yellow">{c}</span> <span className="dim">{d}</span>
+          </div>
+        ))}
+      </div>,
     );
     addSpacer();
-  }, [addLine, addSpacer]);
-
+  }, [addItem, addSpacer]);
   const showAbout = useCallback(() => {
     addSpacer();
     addLine(
@@ -501,10 +489,10 @@ export default function Page() {
           <div className="proj-title">
             <span className="dim">{String(idx + 1).padStart(2, "0")}/</span>{" "}
             {proj.name}{" "}
-            <span
-              className={`pstatus ${proj.status === "live" ? "live" : "wip"}`}
-            >
-              {proj.status === "live" ? "● live" : "◉ wip"}
+            <span className={`pstatus ${proj.status}`}>
+              {proj.status === "live" ? "● live" : null}
+              {proj.status === "wip" ? "◉ wip" : null}
+              {proj.status === "completed" ? "● completed" : null}
             </span>
           </div>
           <div className="proj-desc">{proj.desc}</div>
