@@ -30,6 +30,8 @@ const PROMPT: PromptInfo = {
 };
 
 const BANNER_TEXT = "HARENDRA KUMARASIRI";
+const CV_FILE_NAME = "Curriculum Vitae KAHW Kumarasiri.pdf";
+const CV_URL = `/${CV_FILE_NAME}`;
 
 const NEOFETCH_ART = `
 --------------~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~---~~~~~~~~~~~~~~~~--~-------------------------
@@ -143,67 +145,135 @@ const NEOFETCH_INFO_LINES = NEOFETCH_INFO.map((line) => line ?? "");
 
 const PROJECTS = [
   {
-    name: "daily-site-progress-mgmt",
-    desc: "Construction progress tracking system with real-time reporting and role-based access.",
-    stack: ["PHP", "MySQL", "Bootstrap"],
+    name: "purr-fect",
+    desc: "AI-based pet adoption and rescue platform with pet recommendations, rescue reporting, lost pet finder, stray locator, and an in-built pet store.",
+    stack: ["Python", "FastAPI", "MySQL", "React", "React Native"],
     status: "live",
+    links: [
+      ["web", "https://github.com/harrencode/purrfect-frontend-web"],
+      ["mobile", "https://github.com/harrencode/purrfect-frontend-mobile"],
+      ["backend", "https://github.com/harrencode/purrfect-backend"],
+      ["demo", "https://purrfect-frontend-web.vercel.app/signin"],
+    ],
   },
   {
     name: "highway-bus-mate",
-    desc: "Real-time bus tracking & ticket booking for highway routes across Sri Lanka.",
-    stack: ["React", "Node.js", "MySQL"],
+    desc: "Sri Lankan highway bus companion for timetables, seat reservations, e-tickets, and live tracking.",
+    stack: ["Python", "FastAPI", "PostgreSQL", "React", "React Native"],
     status: "wip",
+    links: [["repo", "https://github.com/harrencode/highway-bus-mate"]],
   },
   {
-    name: "todo-list-app",
-    desc: "Minimalist task manager — clean UI, local persistence, drag-to-reorder.",
-    stack: ["JavaScript", "HTML", "CSS"],
+    name: "lunar",
+    desc: "Menstrual cycle tracker with period logging, symptom and pattern tracking, smart predictions, wellness tips, mood insights, and private reminders.",
+    stack: ["Python", "FastAPI", "MySQL", "React", "React Native"],
+    status: "wip",
+    links: [["repo", "https://github.com/harrencode/lunar-period-tracker-app"]],
+  },
+  {
+    name: "vrs-vehicle-renting-system",
+    desc: "Group project for a web-based vehicle rental system that lets customers book and manage rentals through a reliable, user-friendly workflow.",
+    stack: ["PHP", "MySQL", "JavaScript", "Bootstrap"],
     status: "live",
+    links: [["repo", "https://github.com/SaviduOfficial/carRental"]],
+  },
+  {
+    name: "mad-word-guessing-game",
+    desc: "Android word guessing game where players try to uncover a hidden word within a limited number of attempts.",
+    stack: ["Android Studio", "Java", "Dreamlo API"],
+    status: "live",
+    links: [["repo", "https://github.com/harrencode/mad_word_guessing_game"]],
+  },
+  {
+    name: "slt-data-monitor-extension",
+    desc: "Chrome and Edge extension that tracks SLT MySLT broadband usage, refreshes remaining data every 30 minutes, and sends low-data alerts.",
+    stack: [
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "Chrome Extension APIs",
+      "Manifest V3",
+      "PowerShell",
+    ],
+    status: "live",
+    links: [["repo", "https://github.com/harrencode/slt-extension"]],
   },
 ];
 
-type SkillEntry = [string, number];
-
-const SKILLS: Record<
-  "frontend" | "backend" | "design" | "deploy",
-  SkillEntry[]
-> = {
-  frontend: [
-    ["React / JSX", 90],
-    ["Next.js", 88],
-    ["TypeScript", 86],
-    ["JavaScript", 88],
-  ],
-  backend: [
-    ["Python", 82],
-    ["FastAPI", 78],
-    ["Java", 78],
-    ["C#", 74],
-    [".NET Framework", 72],
-    ["Spring Boot", 76],
-    ["PHP", 75],
-    ["MySQL", 85],
-    ["PostgreSQL", 82],
-  ],
-  design: [
-    ["Figma / UI/UX", 80],
-    ["Digital Marketing", 90],
-    ["AutoCAD", 70],
-    ["Revit", 68],
-    ["SketchUp", 72],
-    ["Lumion", 66],
-  ],
-  deploy: [
-    ["AWS", 78],
-    ["Docker", 80],
-    ["Vercel", 82],
-    ["GitHub Actions", 76],
-    ["Render", 74],
-  ],
+type SkillCategory = {
+  name: string;
+  items: string[];
 };
 
-const SKILL_TOTAL = Object.values(SKILLS).reduce(
-  (total, list) => total + list.length,
+const SKILLS: SkillCategory[] = [
+  {
+    name: "Programming Languages",
+    items: ["Python", "JavaScript", "Java", "PHP", "C#"],
+  },
+  {
+    name: "Frameworks & Technologies",
+    items: ["FastAPI", "Django", "React", "React Native", "Spring Boot"],
+  },
+  {
+    name: "Database Management",
+    items: ["MySQL", "PostgreSQL"],
+  },
+  {
+    name: "Cloud & Tools",
+    items: [
+      "AWS Cloud Services",
+      "Google Cloud Services",
+      "GitHub",
+      "Android Studio",
+    ],
+  },
+  {
+    name: "Development Expertise",
+    items: [
+      "Full-Stack Development",
+      "REST API Development",
+      "Responsive Web Design",
+      "Mobile Application Development",
+      "Database Design",
+    ],
+  },
+  {
+    name: "Software Engineering Practices",
+    items: [
+      "Object-Oriented Programming (OOP)",
+      "Version Control",
+      "Agile Development",
+      "Problem Solving",
+      "Testing & Debugging",
+    ],
+  },
+  {
+    name: "Visualization",
+    items: [
+      "Figma",
+      "SketchUp + Lumion",
+      "Adobe Photoshop",
+      "Adobe Illustrator",
+      "AutoCAD",
+      "Revit",
+    ],
+  },
+  {
+    name: "Soft Skills",
+    items: [
+      "Team Collaboration",
+      "Communication",
+      "Adaptability",
+      "Analytical Thinking",
+      "Time Management",
+      "Continuous Learning",
+      "Attention to Detail",
+    ],
+  },
+];
+
+const SKILL_TOTAL = SKILLS.reduce(
+  (total, category) => total + category.items.length,
   0,
 );
 
@@ -289,6 +359,7 @@ export default function Page() {
       ["skills", "tech stack with proficiency levels"],
       ["projects", "portfolio of work"],
       ["contact", "get in touch"],
+      ["cv", "download curriculum vitae"],
       ["whoami", "current session info"],
       ["ls", "list portfolio directory"],
       ["cat README.md", "read this repo's readme"],
@@ -387,30 +458,23 @@ export default function Page() {
       <>
         <span className="dim">$ </span>
         <span className="g">cat</span> skills.json{" "}
-        <span className="dim">{"| jq '.[] | {name, level}'"}</span>
+        <span className="dim">{"| jq '.[] | {category, skills}'"}</span>
       </>,
     );
     addSpacer();
-    addLine(<span className="yellow">{"// frontend"}</span>);
-    SKILLS.frontend.forEach(([name, pct]) => {
-      addItem(renderSkillRow(name, pct, "g"));
+    SKILLS.forEach((category) => {
+      addLine(<span className="yellow">{`// ${category.name}`}</span>);
+      addItem(
+        <div className="skill-cloud" key={`skills-${category.name}`}>
+          {category.items.map((skill) => (
+            <span className="skill-pill" key={`${category.name}-${skill}`}>
+              {skill}
+            </span>
+          ))}
+        </div>,
+      );
+      addSpacer();
     });
-    addSpacer();
-    addLine(<span className="yellow">{"// backend"}</span>);
-    SKILLS.backend.forEach(([name, pct]) => {
-      addItem(renderSkillRow(name, pct, "blue"));
-    });
-    addSpacer();
-    addLine(<span className="yellow">{"// deploy"}</span>);
-    SKILLS.deploy.forEach(([name, pct]) => {
-      addItem(renderSkillRow(name, pct, "blue"));
-    });
-    addSpacer();
-    addLine(<span className="yellow">{"// design & other"}</span>);
-    SKILLS.design.forEach(([name, pct]) => {
-      addItem(renderSkillRow(name, pct, "pink"));
-    });
-    addSpacer();
     addLine(
       <>
         <span className="dim">{"// "}</span>
@@ -451,89 +515,127 @@ export default function Page() {
               </span>
             ))}
           </div>
+          <div className="proj-links">
+            {proj.links.map(([label, href]) => (
+              <a
+                className="plink"
+                href={href}
+                key={`${proj.name}-${label}`}
+                rel="noreferrer"
+                target="_blank"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
         </div>,
       );
     });
     addSpacer();
     addLine(
       <>
-        <span className="dim">3 projects found.</span>{" "}
-        <span className="cyan">more coming soon...</span>
+        <span className="dim">{PROJECTS.length} projects found.</span>{" "}
+        <span className="cyan">portfolio synced.</span>
       </>,
     );
     addSpacer();
   }, [addItem, addLine, addSpacer]);
 
-  const showContact = useCallback(() => {
-    addSpacer();
-    addLine(
-      <>
-        <span className="dim">$ </span>
-        <span className="g">cat</span> contact.json
-      </>,
-    );
-    addSpacer();
-    addLine(<span className="dim">{`{`}</span>);
-    addLine(
-      <>
-        <span className="cyan">{'  "name"'}</span>
-        <span className="dim">:</span>{" "}
-        <span className="yellow">{'"Harendra Kumarasiri"'}</span>
-        <span className="dim">,</span>
-      </>,
-    );
-    addLine(
-      <>
-        <span className="cyan">{'  "whatsapp"'}</span>
-        <span className="dim">:</span>{" "}
-        <span className="yellow">{'"+94 XX XXX XXXX"'}</span>
-        <span className="dim">,</span>
-      </>,
-    );
-    addLine(
-      <>
-        <span className="cyan">{'  "email"'}</span>
-        <span className="dim">:</span>{" "}
-        <span className="yellow">{'"harendra@example.com"'}</span>
-        <span className="dim">,</span>
-      </>,
-    );
-    addLine(
-      <>
-        <span className="cyan">{'  "github"'}</span>
-        <span className="dim">:</span>{" "}
-        <span className="blue">{'"github.com/harrencode"'}</span>
-        <span className="dim">,</span>
-      </>,
-    );
-    addLine(
-      <>
-        <span className="cyan">{'  "linkedin"'}</span>
-        <span className="dim">:</span>{" "}
-        <span className="blue">{'"linkedin.com/in/harendra"'}</span>
-        <span className="dim">,</span>
-      </>,
-    );
-    addLine(
-      <>
-        <span className="cyan">{'  "status"'}</span>
-        <span className="dim">:</span>{" "}
-        <span className="g">
-          {'"open to freelance & full-time opportunities"'}
-        </span>
-      </>,
-    );
-    addLine(<span className="dim">{`}`}</span>);
-    addSpacer();
-    addLine(
-      <>
-        <span className="dim">{"// "}</span>
-        <span className="g">response time</span>
-        <span className="dim">: usually &lt; 24h</span>
-      </>,
-    );
-    addSpacer();
-  }, [addLine, addSpacer]);
+  const showContact = useCallback(
+    (showCommand = true) => {
+      addSpacer();
+      if (showCommand) {
+        addLine(
+          <>
+            <span className="dim">$ </span>
+            <span className="g">cat</span> contact.json
+          </>,
+        );
+        addSpacer();
+      }
+      addLine(<span className="dim">{`{`}</span>);
+      addLine(
+        <>
+          <span className="cyan">{'  "name"'}</span>
+          <span className="dim">:</span>{" "}
+          <span className="yellow">{'"Harendra Kumarasiri"'}</span>
+          <span className="dim">,</span>
+        </>,
+      );
+      addLine(
+        <>
+          <span className="cyan">{'  "whatsapp"'}</span>
+          <span className="dim">:</span>{" "}
+          <span className="yellow">{'"+94719825683"'}</span>
+          <span className="dim">,</span>
+        </>,
+      );
+      addLine(
+        <>
+          <span className="cyan">{'  "email"'}</span>
+          <span className="dim">:</span>{" "}
+          <span className="yellow">{'"harendra98w@gmail.com"'}</span>
+          <span className="dim">,</span>
+        </>,
+      );
+      addLine(
+        <>
+          <span className="cyan">{'  "github"'}</span>
+          <span className="dim">:</span>{" "}
+          <span className="blue">{'"github.com/harrencode"'}</span>
+          <span className="dim">,</span>
+        </>,
+      );
+      addLine(
+        <>
+          <span className="cyan">{'  "linkedin"'}</span>
+          <span className="dim">:</span>{" "}
+          <span className="blue">
+            {'"linkedin.com/in/harendra-kumarasiri-bb2850a9/"'}
+          </span>
+          <span className="dim">,</span>
+        </>,
+      );
+      addLine(
+        <>
+          <span className="cyan">{'  "behance"'}</span>
+          <span className="dim">:</span>{" "}
+          <span className="blue">{'"behance.net/harrencode"'}</span>
+          <span className="dim">,</span>
+        </>,
+      );
+      addLine(
+        <>
+          <span className="cyan">{'  "cv"'}</span>
+          <span className="dim">:</span>{" "}
+          <a className="plink" download href={CV_URL}>
+            {CV_URL}
+          </a>
+          <span className="dim">,</span>
+        </>,
+      );
+      addLine(
+        <>
+          <span className="cyan">{'  "status"'}</span>
+          <span className="dim">:</span>{" "}
+          <span className="g">
+            {'"open to freelance & full-time opportunities"'}
+          </span>
+        </>,
+      );
+      addLine(<span className="dim">{`}`}</span>);
+      addSpacer();
+      addLine(
+        <>
+          <span className="dim">{"// "}</span>
+          <span className="g">response time</span>
+          <span className="dim">: usually &lt; 24h</span>
+        </>,
+      );
+      addSpacer();
+    },
+    [addLine, addSpacer],
+  );
 
   const showWhoami = useCallback(() => {
     addSpacer();
@@ -555,6 +657,7 @@ export default function Page() {
       ["drwxr-xr-x", "harendra", "4096", "projects/", "g"],
       ["-rw-r--r--", "harendra", "2.4K", "README.md", "yellow"],
       ["-rw-r--r--", "harendra", "1.1K", "contact.json", "yellow"],
+      ["-rw-r--r--", "harendra", "CV", CV_FILE_NAME, "cyan"],
       ["-rw-r--r--", "harendra", "892", "package.json", "cyan"],
     ].forEach(([perm, owner, size, name, color]) => {
       addLine(
@@ -571,7 +674,12 @@ export default function Page() {
 
   const showCat = useCallback(
     (args: string) => {
-      if (!args || !args.toLowerCase().includes("readme")) {
+      const normalizedArgs = args.toLowerCase();
+      if (normalizedArgs.includes("contact")) {
+        showContact(false);
+        return;
+      }
+      if (!normalizedArgs.includes("readme")) {
         addLine(
           <span className="red">
             cat: {args || "(no file)"}: No such file or directory
@@ -581,7 +689,7 @@ export default function Page() {
         return;
       }
       addSpacer();
-      addLine(<span className="g"># Harendra Kuma1111rasiri — Portfolio</span>);
+      addLine(<span className="g"># Harendra Kumarasiri — Portfolio</span>);
       addSpacer();
       addLine(<span className="yellow">## tldr</span>);
       addLine(
@@ -605,8 +713,27 @@ export default function Page() {
       );
       addSpacer();
     },
-    [addLine, addSpacer],
+    [addLine, addSpacer, showContact],
   );
+
+  const showCv = useCallback(() => {
+    addSpacer();
+    addLine(
+      <>
+        <span className="dim">$ </span>
+        <span className="g">open</span> {CV_URL}
+      </>,
+    );
+    addLine(
+      <>
+        <span className="cyan">download:</span>{" "}
+        <a className="plink" download href={CV_URL}>
+          {CV_FILE_NAME}
+        </a>
+      </>,
+    );
+    addSpacer();
+  }, [addLine, addSpacer]);
 
   const showSudo = useCallback(
     (args: string) => {
@@ -717,6 +844,10 @@ export default function Page() {
         case "contact":
           showContact();
           break;
+        case "cv":
+        case "resume":
+          showCv();
+          break;
         case "whoami":
           showWhoami();
           break;
@@ -748,6 +879,7 @@ export default function Page() {
       showAbout,
       showCat,
       showContact,
+      showCv,
       showHelp,
       showLs,
       showNeofetch,
@@ -966,32 +1098,6 @@ export default function Page() {
           <span className={`cursor${blinkerHidden ? " cursor-hidden" : ""}`} />
         </div>
       </div>
-    </div>
-  );
-}
-
-function renderSkillRow(
-  name: string,
-  pct: number,
-  color: "g" | "blue" | "pink",
-) {
-  const filled = Math.round(pct / 4);
-  const empty = 25 - filled;
-  const colors: Record<string, string> = {
-    g: "#00ff46",
-    blue: "#5eaeff",
-    pink: "#ff79c6",
-  };
-  const barColor = colors[color] || "#00ff46";
-
-  return (
-    <div className="skill-row" key={`${name}-${pct}`}>
-      <span className="sk-name">{name}</span>
-      <span className="sk-bar" style={{ color: barColor }}>
-        {"▓".repeat(filled)}
-      </span>
-      <span className="sk-empty">{"░".repeat(empty)}</span>
-      <span className="sk-pct">{pct}%</span>
     </div>
   );
 }

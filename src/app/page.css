@@ -281,6 +281,22 @@
   width: 36px;
 }
 
+.skill-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 5px 0 2px;
+}
+
+.skill-pill {
+  color: var(--cyan);
+  border: 1px solid #0a3a4a;
+  border-radius: 2px;
+  padding: 2px 8px;
+  font-size: 11px;
+  background: rgba(0, 212, 255, 0.05);
+}
+
 .proj {
   border-left: 2px solid var(--green);
   padding: 8px 0 8px 14px;
@@ -309,12 +325,31 @@
   flex-wrap: wrap;
 }
 
+.proj-links {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
 .ptag {
   font-size: 11px;
   color: var(--cyan);
   border: 1px solid #0a3a4a;
   padding: 1px 8px;
   border-radius: 2px;
+}
+
+.plink {
+  color: var(--green);
+  font-size: 11px;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(0, 255, 70, 0.5);
+}
+
+.plink:hover {
+  color: var(--yellow);
+  border-bottom-color: var(--yellow);
 }
 
 .pstatus {
